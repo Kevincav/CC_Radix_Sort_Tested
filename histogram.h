@@ -192,7 +192,7 @@ std::vector<std::vector<kHistogramDataType>> Histogram::GetHistogram(uint64_t* a
         }
     } else if (type == SIGNED) {  // Histogram needs to be fliped if signed values.
         for (int i = 0; i < size; ++i) {
-            const uint32_t value = FlipFlopInteger(array[i]);
+            const uint64_t value = FlipFlopInteger(array[i]);
             array[i] = value;
             ++histogram[0][ExtractBit(value, 0)];
             ++histogram[1][ExtractBit(value, 1)];
@@ -203,7 +203,7 @@ std::vector<std::vector<kHistogramDataType>> Histogram::GetHistogram(uint64_t* a
         }
     } else {  // Histogram needs to be fliped if floating point values.
         for (int i = 0; i < size; ++i) {
-            const uint32_t value = FlipFloatingPoint(array[i]);
+            const uint64_t value = FlipFloatingPoint(array[i]);
             array[i] = value;
             ++histogram[0][ExtractBit(value, 0)];
             ++histogram[1][ExtractBit(value, 1)];

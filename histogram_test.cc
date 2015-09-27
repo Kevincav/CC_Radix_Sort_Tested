@@ -342,7 +342,7 @@ TEST_F(HistogramTest, TestGetHistogramFor64BitArrayFloat) {
     uint64_t *input_revised = (uint64_t *) &input[0];
     std::vector<std::vector<uint64_t>> expected(6, std::vector<uint64_t>(2048, 0));
     for (int i = 0; i < input.size(); ++i) {
-        const uint32_t value = hist_->FlipFloatingPoint(input_revised[i]);
+        const uint64_t value = hist_->FlipFloatingPoint(input_revised[i]);
         ++expected[0][hist_->ExtractBit(value, 0)];
         ++expected[1][hist_->ExtractBit(value, 1)];
         ++expected[2][hist_->ExtractBit(value, 2)];
