@@ -37,7 +37,7 @@ RadixSort::RadixSort() {
 template <typename T>
 void RadixSort::SortType(T* array, const int size, const enum SortType type) {
     // Sort all 8 and 16-bit data types based on uint8/16_t bit structure.
-    if (size == 0 || type = FLOAT) {
+    if (size == 0 || type == FLOAT) {
         return;
     }
     std::vector<kHistogramDataType> T_hist = histogram_->GetHistogram(array, size, type);
@@ -129,33 +129,33 @@ template <typename T>
 void RadixSort::Sort(std::vector<T>& array) {
     // Sort the array.  Expected types all but bool and long double.
     // Detect if type is unsigned, signed or float for sorting.
-    const bool is_signed = std::numeric_limits<T>::is_signed();
-    const bool is_integer = std::numeric_limits<T>::is_integer();
+    const bool is_signed = std::numeric_limits<T>::is_signed;
+    const bool is_integer = std::numeric_limits<T>::is_integer;
     enum SortType type;
     if (is_signed && is_integer) {  // This is an integer type.
         type = SIGNED;
     } else if (is_signed && !is_integer) {  // This is a floating point type.
         type = FLOAT;
-    } else if (!is_signed && !is_integer) {  // This is an unsigned type.
+    } else if (!is_signed && is_integer) {  // This is an unsigned type.
         type = UNSIGNED;
     } else {  // Not sure if this will ever be called, but it can't sort this type.
         return;
     }
-    switch (sizeof(type)) {
+    switch (sizeof(T)) {
         case 1:  // All 8 bit types.
-            SortType((uint8_t *) &array[i], array.size(), type);
+            SortType((uint8_t *) &array[0], array.size(), type);
             break;
             
         case 2:  // All 16 bit types.
-            SortType((uint16_t *) &array[i], array.size(), type);
+            SortType((uint16_t *) &array[0], array.size(), type);
             break;
             
         case 4:  // All 32 bit types.
-            SortType((uint32_t *) &array[i], array.size(), type);
+            SortType((uint32_t *) &array[0], array.size(), type);
             break;
 
         case 8:  // All 64 bit types.
-            SortType((uint64_t *) &array[i], array.size(), type);
+            SortType((uint64_t *) &array[0], array.size(), type);
             break;
             
         default:  // Can't handle this case.

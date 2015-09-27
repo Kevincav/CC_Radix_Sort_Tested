@@ -61,6 +61,11 @@ class Histogram {
 
     // Generate histogram for uint64_t arrays.  Returns the prefix sum of the histogram.
     std::vector<std::vector<kHistogramDataType>> GetHistogram(uint64_t* array, const int size, const SortType type);
+    
+ private:
+    // Generate the value to flip the sign bit.
+    template<typename T>
+    T GetSignBit(const T unused);
 };
 
 template <typename T>
@@ -80,7 +85,7 @@ void Histogram::GetPrefixSum(std::vector<T>& histogram) {
 template <typename T>
 T Histogram::FlipFlopInteger(const T value) {
     // Flip Flop operation for integers.
-    return value ^ ((T) 1 << (std::numeric_limits<T>::digits - 1));
+    return value ^ GetSignBit(value);
 }
 
 template <typename T>
@@ -89,16 +94,28 @@ T Histogram::FlipFloatingPoint(const T value) {
     if (value >> (std::numeric_limits<T>::digits - 1)) {
         return ~value;
     }
-    return value ^ ((T) 1 << (std::numeric_limits<T>::digits - 1));
+    return value ^ GetSignBit(value);
 }
 
 template <typename T>
 T Histogram::FlopFloatingPoint(const T value) {
     // Flop operations for floating point values.
     if (value >> (std::numeric_limits<T>::digits - 1)) {
-        return value ^ ((T) 1 << (std::numeric_limits<T>::digits - 1));
+        return value ^ GetSignBit(value);
     }
     return ~value;
+}
+
+template <typename T>
+T Histogram::GetSignBit(const T unused) {
+    switch (sizeof(T)) {
+        case 1: return 0x80;
+        case 2: return 0x8000;
+        case 4: return 0x80000000;
+        case 8: return 0x8000000000000000;
+        default: return 0x8000000000000000;
+    }
+    return 0x8000000000000000;
 }
 
 std::vector<kHistogramDataType> Histogram::GetHistogram(uint8_t* array, const int size, const SortType type) {
@@ -113,7 +130,9 @@ std::vector<kHistogramDataType> Histogram::GetHistogram(uint8_t* array, const in
         }
     } else {  // Histogram needs to be fliped if signed values.
         for (int i = 0; i < size; ++i) {
-            ++histogram[FlipFlopInteger(array[i])];
+            uint8_t value = FlipFlopInteger(array[i]);
+            array[i] = value;
+            ++histogram[value];
         }
     }
     GetPrefixSum(histogram);
@@ -133,7 +152,9 @@ std::vector<kHistogramDataType> Histogram::GetHistogram(uint16_t* array, const i
         }
     } else {
         for (int i = 0; i < size; ++i) {
-            ++histogram[FlipFlopInteger(array[i])];
+            uint16_t value = FlipFlopInteger(array[i]);
+            array[i] = value;
+            ++histogram[value];
         }
     }
     GetPrefixSum(histogram);
