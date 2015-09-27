@@ -10,9 +10,6 @@ histogram_test: histogram_test.o
 histogram_test.o: histogram_test.cc
 	g++ ${CC_FLAGS} -c histogram_test.cc
 
-# histogram.o: histogram.h histogram.cc
-# 	g++ ${CC_FLAGS} -c histogram.cc
-
 test: histogram_test
 	./histogram_test
 
