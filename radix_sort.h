@@ -4,6 +4,8 @@
 #include <memory>
 #include <vector>
 
+#include "histogram.h"
+
 class RadixSort {
  public:
      RadixSort();
