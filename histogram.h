@@ -2,6 +2,7 @@
 #define HISTOGRAM_H_
 
 #include <cstdint>
+#include <limits>
 #include <vector>
 
 class Histogram {
