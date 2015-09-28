@@ -4,7 +4,7 @@ GMOCK_FLAGS=-isystem ${INC_DIR}/include -I${INC_DIR} ${INC_DIR}/lib/libgmock.a $
 GFLAGS_FLAGS=-isystem ${INC_DIR}/include -I${INC_DIR} ${INC_DIR}/lib/libgflags.a
 GLOG_FLAGS=-isystem ${INC_DIR}/include -I${INC_DIR} ${INC_DIR}/lib/libglog.a
 GOOGLE_FLAGS=${GTEST_FLAGS} ${GMOCK_FLAGS} ${GFLAGS_FLAGS} ${GLOG_FLAGS}
-CC_FLAGS=-std=c++11 -g
+CC_FLAGS=-std=c++11 -Wall -g
 OPTIMIZATION_FLAGS=-O3 -funroll-loops
 CC=g++
 

@@ -14,7 +14,7 @@ DEFINE_int32(number_of_elements, 1000000, "Run the radix_sort with how many elem
 // DEFINE_bool(parallel_comparisons, false, "Run std::sort and radix_sort in parallel. time_std_sort should be true as well.");
 DEFINE_bool(time_std_sort, false, "Time std::sort along side.");
 
-typedef float kDataType;
+typedef double kDataType;
 
 std::vector<kDataType> GenerateRandomVector() {
 	std::random_device rd;
