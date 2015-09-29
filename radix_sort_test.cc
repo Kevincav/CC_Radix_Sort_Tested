@@ -5,15 +5,13 @@
 #include <random>
 #include <vector>
 
-#include <glog/logging.h>
 #include <gmock/gmock.h>
-#include <google/gflags.h>
 #include <gtest/gtest.h>
 
 #include "histogram.h"
 #include "radix_sort.h"
 
-DEFINE_int32(load_test_num_of_iterations, 1000000, "How many iterations should the load tests run?");
+int kLoadTestNumberIterations = 1000000;
 
 namespace {
     
@@ -41,14 +39,13 @@ TEST_F(RadixSortTest, LoadTestUnsignedChar) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<unsigned char> uniform_dist(std::numeric_limits<unsigned char>::min(), std::numeric_limits<unsigned char>::max());
     std::vector<unsigned char> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const unsigned char value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " unsigned char values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -58,14 +55,13 @@ TEST_F(RadixSortTest, LoadTestChar) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<char> uniform_dist(std::numeric_limits<char>::min(), std::numeric_limits<char>::max());
     std::vector<char> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const char value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " char values.";
     EXPECT_EQ(input, expected);
 }
     
@@ -75,14 +71,13 @@ TEST_F(RadixSortTest, LoadTestUnsignedShort) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<unsigned short> uniform_dist(std::numeric_limits<unsigned short>::min(), std::numeric_limits<unsigned short>::max());
     std::vector<unsigned short> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const unsigned short value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " unsigned short values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -92,14 +87,13 @@ TEST_F(RadixSortTest, LoadTestShort) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<short> uniform_dist(std::numeric_limits<short>::min(), std::numeric_limits<short>::max());
     std::vector<short> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const short value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " short values.";
     EXPECT_EQ(input, expected);
 }
     
@@ -109,14 +103,13 @@ TEST_F(RadixSortTest, LoadTestUnsignedInt) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<unsigned int> uniform_dist(std::numeric_limits<unsigned int>::min(), std::numeric_limits<unsigned int>::max());
     std::vector<unsigned int> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const unsigned int value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " unsigned integer values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -126,14 +119,13 @@ TEST_F(RadixSortTest, LoadTestInt) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<int> uniform_dist(std::numeric_limits<int>::min(), std::numeric_limits<int>::max());
     std::vector<int> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const int value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " integer values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -143,14 +135,13 @@ TEST_F(RadixSortTest, LoadTestUnsignedLong) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<unsigned long> uniform_dist(std::numeric_limits<unsigned long>::min(), std::numeric_limits<unsigned long>::max());
     std::vector<unsigned long> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const unsigned long value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " unsigned long values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -160,14 +151,13 @@ TEST_F(RadixSortTest, LoadTestLong) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<long> uniform_dist(std::numeric_limits<long>::min(), std::numeric_limits<long>::max());
     std::vector<long> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const long value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " long values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -177,14 +167,13 @@ TEST_F(RadixSortTest, LoadTestFloats) {
     std::default_random_engine engine(rd());
     std::uniform_real_distribution<float> uniform_dist(std::numeric_limits<float>::min(), std::numeric_limits<float>::max());
     std::vector<float> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const float value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " floating point values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -194,14 +183,13 @@ TEST_F(RadixSortTest, LoadTestuint64_t) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<uint64_t> uniform_dist(std::numeric_limits<uint64_t>::min(), std::numeric_limits<uint64_t>::max());
     std::vector<uint64_t> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const uint64_t value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " uint64_t values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -211,14 +199,13 @@ TEST_F(RadixSortTest, LoadTestint64_t) {
     std::default_random_engine engine(rd());
     std::uniform_int_distribution<int64_t> uniform_dist(std::numeric_limits<int64_t>::min(), std::numeric_limits<int64_t>::max());
     std::vector<int64_t> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const int64_t value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " int64_t values.";
     EXPECT_EQ(input, expected);
 }
 
@@ -228,22 +215,19 @@ TEST_F(RadixSortTest, LoadTestDoubles) {
     std::default_random_engine engine(rd());
     std::uniform_real_distribution<double> uniform_dist(std::numeric_limits<double>::min(), std::numeric_limits<double>::max());
     std::vector<double> input, expected;
-    for (int i = 0; i < FLAGS_load_test_num_of_iterations; ++i) {
+    for (int i = 0; i < kLoadTestNumberIterations; ++i) {
         const double value = uniform_dist(engine);
         input.emplace_back(value);
         expected.emplace_back(value);
     }
     std::sort(expected.begin(), expected.end());
     radix_sort_->Sort(input);
-    LOG(INFO) << "Running a load test for " << FLAGS_load_test_num_of_iterations << " double values.";
     EXPECT_EQ(input, expected);
 }
 
 }  // namespace
 
 int main (int argc, char *argv[]) {
-    ::google::InitGoogleLogging(argv[0]);
     ::testing::InitGoogleMock(&argc, argv);
-    ::google::ParseCommandLineFlags(&argc, &argv, true);
     return RUN_ALL_TESTS();
 }

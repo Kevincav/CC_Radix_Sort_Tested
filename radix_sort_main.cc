@@ -1,18 +1,14 @@
 #include <algorithm>
 #include <chrono>
+#include <iostream>
 #include <random>
 #include <thread>
 #include <vector>
 
-#include <glog/logging.h>
-#include <google/gflags.h>
-
 #include "radix_sort.h"
 
-DEFINE_int32(number_of_elements, 1000000, "Run the radix_sort with how many elements in the array?");
-// TODO: Add functionality for this.
-// DEFINE_bool(parallel_comparisons, false, "Run std::sort and radix_sort in parallel. time_std_sort should be true as well.");
-DEFINE_bool(time_std_sort, false, "Time std::sort along side.");
+int FLAGS_number_of_elements = 100000000;
+bool FLAGS_time_std_sort = false;
 
 typedef double kDataType;
 
@@ -28,9 +24,6 @@ std::vector<kDataType> GenerateRandomVector() {
 }
 
 int main (int argc, char* argv[]) {
-	::google::InitGoogleLogging(argv[0]);
-    ::google::ParseCommandLineFlags(&argc, &argv, true);
-
     using namespace std::chrono;
 
     // Set up test parameters.
@@ -46,7 +39,7 @@ int main (int argc, char* argv[]) {
 	radix_sort.Sort(test_vector);
   	high_resolution_clock::time_point t2 = high_resolution_clock::now();
   	duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-	LOG(INFO) << "It took the radix_sort " << time_span.count() << " seconds to sort " << FLAGS_number_of_elements << " elements.\n";
+    std::cout << "It took the radix_sort " << time_span.count() << " seconds to sort " << FLAGS_number_of_elements << " elements.\n";
 
 	// Only runs if comparing timings to std::sort.
 	if (FLAGS_time_std_sort) {
@@ -54,7 +47,7 @@ int main (int argc, char* argv[]) {
 		std::sort(compare_vector.begin(), compare_vector.end());
   		high_resolution_clock::time_point t2 = high_resolution_clock::now();
   		duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
-		LOG(INFO) << "It took the std::sort " << time_span.count() << " seconds to sort " << FLAGS_number_of_elements << " elements.\n";
+        std::cout << "It took the std::sort " << time_span.count() << " seconds to sort " << FLAGS_number_of_elements << " elements.\n";
 	}
 
 	return 0;
