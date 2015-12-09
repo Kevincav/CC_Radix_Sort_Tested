@@ -1,34 +1,32 @@
+#LIBRARIES
 
+cc_library(
+    name = "radix_sort",
+    hdrs = ["radix_sort.h"],
+    includes = ["histogram.h"],
+    visibility = ["//visibility:public"],
+)
 
-# TESTS
+#TESTS
 
 cc_test(
     name = "histogram_test",
     srcs = ["histogram_test.cc"],
-    deps = ["@gtest//:main"],
-    includes = [
-    	"histogram.h",
+    deps = [
+        "//third_party/glog",
+        "//third_party/gtest",
     ],
+    includes = ["histogram.h"],
 )
 
 cc_test(
     name = "radix_sort_test",
     srcs = ["radix_sort_test.cc"],
     deps = [
-        "@gmock//:main",
-    	"@gtest//:main"
+        "//third_party/glog",
+        "//third_party/gtest",
     ],
-    includes = [
-    	"histogram.h",
-    	"radix_sort.h"
-    ],
-)
-
-# BINARIES
-
-cc_binary(
-    name = "radix_sort_main",
-    srcs = ["radix_sort_main.cc"],
-    deps = [],
     includes = ["radix_sort.h"],
 )
+
+#BINARIES
